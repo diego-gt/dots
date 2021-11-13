@@ -16,6 +16,7 @@ vim.o.backup = false
 vim.o.writebackup = false
 vim.o.undofile = true
 vim.o.swapfile = false
+-- TODO: Properly set up these directories to work on Windows + Linux
 vim.o.backupdir = '/tmp/'
 vim.o.directory = '/tmp/'
 vim.o.undodir = '/tmp/'
@@ -26,8 +27,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 vim.api.nvim_set_keymap('n', '<leader>o', [[<cmd>ClangdSwitchSourceHeader<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>w', [[<cmd>write<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>q', [[<cmd>quit<CR>]], { noremap = true, silent = true })
+
 -- gallo config ends
 
 -- taken from https://github.com/nvim-lua/kickstart.nvim with slights modifications
@@ -57,12 +57,15 @@ require('packer').startup(function()
   use 'ludovicchabant/vim-gutentags' -- Automatic tags management
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-  use 'joshdick/onedark.vim' -- Theme inspired by Atom
-  use 'fxn/vim-monochrome'
-  use 'huyvohcmc/atlas.vim'
-  use 'ajmwagar/vim-deus'
-	use 'whatyouhide/vim-gotham'
-	use 'arcticicestudio/nord-vim' 
+	-- colorschemes
+  -- use 'joshdick/onedark.vim' -- Theme inspired by Atom
+  -- use 'fxn/vim-monochrome'
+  -- use 'huyvohcmc/atlas.vim'
+  -- use 'ajmwagar/vim-deus'
+	-- use 'whatyouhide/vim-gotham'
+	-- use 'arcticicestudio/nord-vim' 
+	use 'folke/tokyonight.nvim'
+	
   use 'itchyny/lightline.vim' -- Fancier statusline
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
@@ -108,19 +111,13 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
---Set colorscheme (order is important here)
--- needs to be disabled to work on tmux?
--- vim.o.termguicolors = true
--- vim.g.onedark_terminal_italics = 2
--- vim.cmd [[colorscheme onedark]]
--- vim.cmd [[colorscheme deus]]
--- vim.cmd [[colorscheme atlas]]
--- vim.cmd [[colorscheme gotham]]
-vim.cmd [[colorscheme nord]]
+--Set colorscheme
+vim.g.tokyonight_style = 'night'
+vim.cmd [[colorscheme tokyonight]]
 
 --Set statusbar
 vim.g.lightline = {
-  colorscheme = 'nord',
+  colorscheme = 'tokyonight',
   active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'filename', 'modified' } } },
   component_function = { gitbranch = 'fugitive#head' },
 }
