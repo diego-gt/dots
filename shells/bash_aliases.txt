@@ -1,5 +1,5 @@
 alias ls='ls --color=auto'
 alias ll='ls --color=auto --almost-all --human-readable -l'
-alias v='vim'
+alias v='nvim'
 alias ts='tmux new-session -s $(printf '%s' "${PWD##*/}")'
 
