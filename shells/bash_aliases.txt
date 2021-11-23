@@ -1,5 +1,19 @@
+# utilities
 alias ls='ls --color=auto'
 alias ll='ls --color=auto --almost-all --human-readable -l'
+
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+
+# editors
 alias v='nvim'
+alias vrc='nvim $HOME/.config/nvim/init.lua'
+
+# tmux
 alias ts='tmux new-session -s $(printf '%s' "${PWD##*/}")'
+
+# directories
+alias dots='cd $GIT_REPOS/dots'
+alias ws='cd $HOME/dev'
 

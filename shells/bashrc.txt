@@ -42,4 +42,6 @@ fi
 source ~/.bash_aliases
 # ===== [ aliases:end ] =====
 
-
+# ===== [ env-vars:begin ] =====
+export GIT_REPOS="$HOME/git/own"
+# ===== [ env-vars:end ] =====
