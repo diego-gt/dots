@@ -1,0 +1,21 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+_BOLD="\[$(tput bold)\]"
+_BOLDITALIC="\[$(tput bold)$(tput sitm)\]"
+_RESET="\[$(tput sgr0)\]"
+_BLACKBG="\[$(tput setab 0)\]"
+_BLACKFG="\[$(tput setaf 0)\]"
+_WHITEFG="\[$(tput setaf 7)\]"
+_BLUEBG="\[$(tput setab 4)\]"
+_PURPLEFG="\[$(tput setaf 57)\]"
+
+export PS1="${_BOLDITALIC}${_PURPLEFG}\w $ ${_RESET}"
+
+export PATH="$PATH:/home/diego/.emacs.d/bin"
+. "$HOME/.cargo/env"
+source ~/.bash_aliases
