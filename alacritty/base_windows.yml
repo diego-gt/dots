@@ -11,6 +11,6 @@ font:
 shell:
   program: "C:/Program Files/PowerShell/7/pwsh.exe"
 
-working_directory: "C:/Users/rh/code"
+working_directory: "~/code"
 
 live_config_reload: true
