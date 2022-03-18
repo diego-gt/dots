@@ -4,9 +4,11 @@ vim.o.autoread = true
 -- spacing
 vim.o.scrolloff = 5
 
-vim.o.tabstop = 2
-vim.o.shiftwidth = 0
-vim.o.softtabstop = -1
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
+vim.o.expandtab = true
+vim.o.smarttab = true
 
 -- system clipboard
 vim.o.clipboard = 'unnamedplus'
@@ -16,10 +18,9 @@ vim.o.backup = false
 vim.o.writebackup = false
 vim.o.undofile = true
 vim.o.swapfile = false
--- TODO: Properly set up these directories to work on Windows + Linux
-vim.o.backupdir = '/tmp/'
-vim.o.directory = '/tmp/'
-vim.o.undodir = '/tmp/'
+vim.o.backupdir = '/tmp/nvim'
+vim.o.directory = '/tmp/nvim'
+vim.o.undodir = '/tmp/nvim'
 
 --Remap space as leader key
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
@@ -54,18 +55,16 @@ require('packer').startup(function()
   use 'tpope/vim-fugitive' -- Git commands in nvim
   use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
   use 'tpope/vim-commentary' -- "gc" to comment visual regions/lines
-  use 'ludovicchabant/vim-gutentags' -- Automatic tags management
+  -- use 'ludovicchabant/vim-gutentags' -- Automatic tags management
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 	-- colorschemes
-  -- use 'joshdick/onedark.vim' -- Theme inspired by Atom
-  -- use 'fxn/vim-monochrome'
-  -- use 'huyvohcmc/atlas.vim'
+  use 'huyvohcmc/atlas.vim'
+  -- use 'morhetz/gruvbox'
+  use 'sainnhe/gruvbox-material'
   -- use 'ajmwagar/vim-deus'
-	-- use 'whatyouhide/vim-gotham'
-	-- use 'arcticicestudio/nord-vim' 
-	use 'folke/tokyonight.nvim'
-	
+	-- use 'folke/tokyonight.nvim'
+
   use 'itchyny/lightline.vim' -- Fancier statusline
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
@@ -80,6 +79,9 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-nvim-lsp'
   use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
+
+  use 'p00f/clangd_extensions.nvim'
+  use 'simrat39/rust-tools.nvim'
 end)
 
 --Incremental live completion (note: this is now a default on master)
@@ -113,13 +115,18 @@ vim.wo.signcolumn = 'yes'
 
 --Set colorscheme
 vim.o.termguicolors = true
-vim.g.tokyonight_style = 'night'
-vim.cmd [[colorscheme tokyonight]]
+-- vim.g.tokyonight_style = 'night'
+vim.g.gruvbox_material_enable_italic = 1
+vim.g.gruvbox_material_transparent_background = 1
+vim.o.background = 'dark'
+vim.g.gruvbox_material_background = 'hard'
+vim.cmd [[colorscheme gruvbox-material]]
 
 --Set statusbar
 vim.g.lightline = {
-  colorscheme = 'tokyonight',
-  active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'filename', 'modified' } } },
+  colorscheme = 'gruvbox_material',
+  --active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'filename', 'modified' } } },
+  active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'relativepath', 'modified' } } },
   component_function = { gitbranch = 'fugitive#head' },
 }
 
@@ -173,7 +180,7 @@ require('telescope').setup {
 }
 --Add leader shortcuts
 vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
@@ -181,6 +188,9 @@ vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin
 vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader><TAB>', [[<cmd>tabnext<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader><S-TAB>', [[<cmd>tabprevious<CR>]], { noremap = true, silent = true })
 
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
@@ -266,15 +276,50 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+require'lspconfig'.sumneko_lua.setup {
+	settings = {
+		Lua = {
+			runtime = {
+				version = 'LuaJIT',
+				path = runtime_path,
+			},
+			diagnostics = {
+				globals = { 'vim' },
+			},
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+			telemetry = {
+				enable = false,
+			},
+		},
+	},
+}
+
 -- Enable the following language servers
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
-local servers = { 'clangd', 'rust_analyzer' }
+local servers = { 'rust_analyzer', 'pyright', 'html', 'eslint', 'tsserver'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
 end
+
+-- use of clangd_extensions
+require("clangd_extensions").setup {
+	server = {
+		on_attach = on_attach,
+		capabilities = capabilities,
+	},
+	extensions = {
+	}
+}
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
