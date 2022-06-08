@@ -17,6 +17,7 @@ require('packer').startup(function(use)
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use { 'nvim-telescope/telescope-file-browser.nvim' }
   use 'tjdevries/colorbuddy.nvim'
   use 'svrana/neosolarized.nvim'
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
@@ -145,11 +146,13 @@ require('telescope').setup {
 -- Enable telescope fzf native
 require('telescope').load_extension 'fzf'
 
+-- Enable telescope file browser
+require('telescope').load_extension 'file_browser'
+
 --Add leader shortcuts
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers)
-vim.keymap.set('n', '<leader>sf', function()
-  require('telescope.builtin').find_files { }
-end)
+vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files)
+vim.keymap.set('n', '<leader>fb', require('telescope').extensions.file_browser.file_browser)
 vim.keymap.set('n', '<leader>sb', require('telescope.builtin').current_buffer_fuzzy_find)
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags)
 vim.keymap.set('n', '<leader>st', require('telescope.builtin').tags)
