@@ -36,6 +36,13 @@ require('packer').startup(function(use)
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
 
+  -- language tools
+  use 'p00f/clangd_extensions.nvim'
+  use 'simrat39/rust-tools.nvim'
+
+  -- todo: configure for debugging
+  use 'mfussenegger/nvim-dap'
+
   if is_bootstrap then
     require('packer').sync()
   end
@@ -95,6 +102,10 @@ vim.cmd [[colorscheme nightfox]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
+
+-- diego options
+vim.o.clipboard = "unnamedplus"
+vim.o.guifont = "JetBrainsMono NF:h13"
 
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
@@ -395,3 +406,7 @@ cmp.setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+
+require('rust-tools').setup({})
+require('clangd_extensions').setup()
