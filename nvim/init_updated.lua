@@ -26,7 +26,6 @@ require('packer').startup(function(use)
   use { 'L3MON4D3/LuaSnip', requires = { 'saadparwaiz1/cmp_luasnip' } }           -- Snippet Engine and Snippet Expansion
   use 'nvim-lualine/lualine.nvim'                                                 -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim'                                       -- Add indentation guides even on blank lines
-  use 'tpope/vim-sleuth'                                                          -- Detect tabstop and shiftwidth automatically
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope-file-browser.nvim' }
 
@@ -105,7 +104,15 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- diego options
 vim.o.clipboard = "unnamedplus"
-vim.o.guifont = "JetBrainsMono NF:h13"
+vim.o.guifont = "FiraCode NF:h13"
+vim.o.autoread = true
+vim.o.autoindent = true
+vim.o.smartindent = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
+vim.o.expandtab = true
+-- diego option
 
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
