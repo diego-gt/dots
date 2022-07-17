@@ -341,7 +341,12 @@ table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
 for _, lsp in ipairs(servers) do
-  if lsp == 'sumneko_lua' then
+  if lsp ~= 'sumneko_lua' then
+    require('lspconfig')[lsp].setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
+  else
     require('lspconfig').sumneko_lua.setup {
       on_attach = on_attach,
       capabilities = capabilities,
@@ -359,11 +364,6 @@ for _, lsp in ipairs(servers) do
           workspace = { library = vim.api.nvim_get_runtime_file('', true) },
         },
       },
-    }
-  else
-    require('lspconfig')[lsp].setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
     }
   end
 end
