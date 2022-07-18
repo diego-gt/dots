@@ -32,6 +32,8 @@ require('packer').startup(function(use)
   -- Colorschemes
   use 'EdenEast/nightfox.nvim'
   use 'artanikin/vim-synthwave84'
+  use 'ajmwagar/vim-deus'
+  use { 'mcchrish/zenbones.nvim', requires = { 'rktjmp/lush.nvim' } }
   --
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
@@ -78,7 +80,7 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
-vim.wo.relativenumber = true
+-- vim.wo.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -99,8 +101,8 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme nightfox]]
--- vim.cmd [[colorscheme synthwave84]]
+vim.o.background = 'dark'
+vim.cmd [[colorscheme zenwritten]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -148,7 +150,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
   options = {
     icons_enabled = false,
-    theme = 'nightfox',
+    theme = 'zenwritten',
     component_separators = '|',
     section_separators = '',
   },
