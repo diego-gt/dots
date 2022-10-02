@@ -1,0 +1,4 @@
+alias ll="exa -l"
+alias lt="exa --tree"
+alias v="nvim"
+alias t="tmux"
