@@ -5,5 +5,5 @@ Personal configuration files.
 - [x] Linux
 - [ ] Windows
 - [ ] WSL2
-- [ ] MacOS
+- [x] MacOS
 
