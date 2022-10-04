@@ -1,0 +1,9 @@
+export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
+export PATH="/Users/dg/Library/Python/3.10/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+eval "$(zoxide init zsh)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.zsh_aliases ] && source ~/.zsh_aliases
