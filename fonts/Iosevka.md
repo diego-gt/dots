@@ -15,3 +15,14 @@ brew install --cask font-iosevka
 ```
 Ligatures: `enabled`
 Size: `20`
+
+## Linux
+Installed Super TTC font file from the [GitHub](https://github.com/be5invis/iosevka) latest release.
+
+Installed manually by:
+```sh
+mkdir ~/.fonts
+mv ~/path/to/iosevka.ttc ~/.fonts
+fc-cache
+```
+Configured `Alacritty` to use the `Term` variant. Size `14.0`. Not sure if ligatures are enabled.
