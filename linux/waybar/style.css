@@ -1,0 +1,84 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Hack;
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: #cdd6f4;
+}
+
+window#waybar.empty #window {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    background-color: transparent;
+}
+
+tooltip {
+    background: #1e1e2e;
+    border-radius: 15px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #262626;
+}
+
+#workspaces button {
+    border-radius: 15px;
+    padding: 5px 10px;
+    color: #cba6f7;
+}
+
+#workspaces button.focused {
+    color: #1e1e2e;
+    background-color: #a6e3a1;
+    border-radius: 15px;
+}
+
+#workspaces button.urgent {
+    color: #1e1e2e;
+    background-color: #f38ba8;
+    border-radius: 15px;
+}
+
+#workspaces button:hover {
+    background-color: #cba6f7;
+    color: #1e1e2e;
+    border-radius: 15px;
+}
+
+#clock, #pulseaudio, #network, #window {
+    background-color: #11111b;
+    padding: 5px 10px;
+    margin: 5px 0px;
+}
+
+#workspaces {
+    background-color: #11111b;
+    border-radius: 15px;
+    padding: 5px 10px;
+    margin: 5px 10px;
+    min-width: 75px;
+}
+
+#window {
+    border-radius: 15px;
+}
+
+#clock {
+    color: #94e2d5;
+    border-radius: 0px 15px 15px 0px;
+    margin-right: 10px;
+}
+
+#network {
+    color: #b4befe;
+    border-radius: 15px 0px 0px 15px;
+}
+
+#pulseaudio {
+    color: #cba6f7;
+}
